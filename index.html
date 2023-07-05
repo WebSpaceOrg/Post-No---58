@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import "https://rsms.me/inter/inter.css";
+
+        :root { font-family: 'Inter', sans-serif; }
+        @supports (font-variation-settings: normal) {
+        :root { font-family: 'Inter var', sans-serif; }
+        }
+
+        body { background: #000; color: #eee; padding: 130px 0 20px; text-align: center }
+        main { display: flex; justify-content: center; gap: 15px; margin: 40px 0; flex-wrap: wrap }
+        div { min-width: 250px;  height: 250px; position: relative; border-radius: 50px; cursor: pointer }
+
+        div:hover::after {
+        opacity: 0.5;
+        }
+
+        div::after {
+        content: "";
+        display: block;
+        position: absolute;
+        background: linear-gradient(to bottom, #ffcc33, #ff6633, #ff3366, #cc33ff);
+        inset: 5px;
+        border-radius: 45px;
+        z-index: 1;
+        transition: opacity .3s ease;
+        }
+
+        #toggle:checked ~ main div::after {
+        opacity: 0.5;
+        }
+
+        /* Modify border color and box-shadow to match the linear gradient color */
+        div {
+        border: 1px solid #ffcc33;
+        box-shadow: 0 0 20px rgba(204, 51, 255, 0.5);
+        }
+
+        h1{
+            color: rgb(162, 179, 190);
+            text-align: center;
+            text-shadow: 0 5px 10px;
+            font-size:xx-large;
+            font-family: sans-seri;
+            margin-top: -5px;
+        }
+
+        @property --r {
+        syntax: '<angle>';
+        inherits: false;
+        initial-value: 0deg;
+        }
+
+        #a {
+        background: conic-gradient(from var(--r),
+         #222 0%,  #eee 10%,
+         #222 20%);animation: rotating
+          2s linear infinite;
+        }
+
+        
+
+        @keyframes rotating {
+        0% {
+            --r: 0deg;
+        }
+        100% {
+            --r: 360deg;
+        }
+        }
+
+        /* better version */
+
+        @property --r2 {
+        syntax: '<angle>';
+        inherits: false;
+        initial-value: 0deg;
+        }
+
+        @property --x {
+        syntax: '<length>';
+        inherits: false;
+        initial-value: 0px;
+        }
+
+        #b {
+        background: conic-gradient(from calc(var(--r2) - 80deg)
+         at var(--x) 50px, #222 0%, #fff 20%, #222 25%);
+        animation: -0.64s rotating2 2s linear infinite,
+         -0.64s x 3s linear infinite;
+        }
+
+        
+        @keyframes x {
+        /* w:h === 6:1 */
+        /* with a 80px x-margin */
+        0% {
+            --x: 80px;
+        }
+        /* 6/(6+3.14) * 50% */
+        32.82275711% {
+            --x: 520px;
+        }
+        50% {
+            --x: 520px;
+        }
+        /* 50% + 32.8% */
+        82.82275711% {
+            --x: 80px;
+        }
+        100% {
+            --x: 80px;
+        }
+        }
+
+        @keyframes rotating2 {
+        0% {
+            --r2: 0deg;
+        }
+        32.82275711% {
+            --r2: 0deg;
+        }
+        50% {
+            --r2: 180deg;
+        }
+        82.82275711% {
+            --r2: 180deg;
+        }
+        100% {
+            --r2: 360deg;
+        }
+        }
+
+    </style>
+</head>
+<body>
+
+<main>
+  <div id="a"></div>
+  <br>
+  <div id="b"></div>
+  <h1>Hover Me</h1>
+</main>
+</body>
+</html>
